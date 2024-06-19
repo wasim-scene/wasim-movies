@@ -12,7 +12,6 @@ function generateIndex(dir, relativePath = '') {
         
         if (item.isDirectory()) {
             content += `<li><a href="${relativeItemPath}/">${item.name}/</a></li>`;
-            content += generateIndex(itemPath, relativeItemPath);
         } else {
             content += `<li><a href="${relativeItemPath}">${item.name}</a></li>`;
         }
@@ -23,5 +22,6 @@ function generateIndex(dir, relativePath = '') {
     return content;
 }
 
-const indexContent = generateIndex('.');
+const moviesDir = path.join(__dirname, 'movies');
+const indexContent = generateIndex(moviesDir, 'movies');
 fs.writeFileSync('index.html', indexContent);
