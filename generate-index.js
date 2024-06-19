@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 function generateIndex(dir, relativePath = '') {
-    let content = `<html><body><ul>`;
+    let content = `<html><body><h1>Index of /movies</h1><ul>`;
 
     const items = fs.readdirSync(dir, { withFileTypes: true });
 
@@ -23,5 +23,9 @@ function generateIndex(dir, relativePath = '') {
 }
 
 const moviesDir = path.join(__dirname, 'movies');
-const indexContent = generateIndex(moviesDir, 'movies');
-fs.writeFileSync('index.html', indexContent);
+if (fs.existsSync(moviesDir)) {
+    const indexContent = generateIndex(moviesDir, 'movies');
+    fs.writeFileSync('index.html', indexContent);
+} else {
+    console.error('The /movies directory does not exist.');
+}
