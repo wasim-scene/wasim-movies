@@ -1,4 +1,4 @@
-name: Generate and Publish Index
+name: Generate Index
 
 on:
   push:
@@ -39,18 +39,5 @@ jobs:
           git add index.html
           git commit -m 'Generate index file'
           git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Deploy to GitHub Pages
-        if: github.ref == 'refs/heads/main'
-        run: |
-          mkdir -p public
-          mv index.html public/index.html
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add public/index.html
-          git commit -m 'Deploy index file to GitHub Pages'
-          git push origin main:gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
